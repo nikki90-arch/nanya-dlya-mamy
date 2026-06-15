@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAF7F2">
+<title>Няня для мамы 🌸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF7F2; --warm:#F5EFE6; --blush:#F2E0D8;
+  --rose:#E8C4B8; --dusty:#C9908A; --deep:#8B5E58;
+  --text:#3D2B28; --muted:#9B837F;
+  --border:rgba(139,94,88,0.12); --shadow:rgba(61,43,40,0.08);
+}
+html{height:100%;-webkit-text-size-adjust:100%}
+body{height:100%;background:var(--cream);color:var(--text);
+  font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+  overscroll-behavior:none}
+
+/* ══ WELCOME ══ */
+#welcome{min-height:100vh;min-height:100dvh;display:flex;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 24px 60px;
+  background:linear-gradient(160deg,#FDF8F4 0%,#F8EDE6 55%,#F5E6E0 100%)}
+.petal{font-size:56px;margin-bottom:20px;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.w-title{font-family:'Cormorant Garamond',serif;
+  font-size:clamp(38px,10vw,56px);font-weight:600;line-height:1.05;
+  color:var(--text);margin-bottom:14px;text-align:center}
+.w-title em{font-style:italic;color:var(--deep)}
+.w-sub{font-size:15px;color:var(--muted);line-height:1.8;
+  max-width:300px;margin-bottom:32px;text-align:center;font-weight:300}
+.setup-card{background:white;border-radius:28px;padding:28px 24px;
+  width:100%;max-width:380px;
+  box-shadow:0 12px 48px var(--shadow);border:1px solid var(--border)}
+.setup-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;
+  font-weight:600;color:var(--text);margin-bottom:22px;text-align:center}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:500;color:var(--muted);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.field input,.field select{width:100%;padding:13px 16px;
+  border:1.5px solid var(--border);border-radius:14px;
+  font-size:15px;font-family:'Inter',sans-serif;color:var(--text);
+  background:var(--cream);outline:none;
+  transition:border-color .2s,background .2s;
+  -webkit-appearance:none;appearance:none}
+.field input:focus,.field select:focus{border-color:var(--dusty);background:white}
+.field input::placeholder{color:var(--muted)}
+.field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B837F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.btn-start{width:100%;padding:15px;background:var(--deep);color:white;
+  border:none;border-radius:14px;font-size:15px;font-weight:500;
+  font-family:'Inter',sans-serif;cursor:pointer;margin-top:6px;
+  transition:background .2s,transform .1s;-webkit-tap-highlight-color:transparent}
+.btn-start:hover{background:#7A5249}
+.btn-start:active{transform:scale(.97)}
+.disclaimer{font-size:11px;color:var(--muted);text-align:center;
+  margin-top:14px;line-height:1.6}
+
+/* ══ APP ══ */
+#app{display:none;flex-direction:column;height:100vh;height:100dvh;
+  max-width:480px;margin:0 auto;background:white;position:relative;overflow:hidden}
+
+/* Header */
+.app-header{padding:12px 16px 10px;background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+  padding-top:max(12px,env(safe-area-inset-top))}
+.avatar-ring{width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blush),var(--rose));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0}
+.header-info{flex:1;min-width:0}
+.header-name{font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:600;color:var(--text)}
+.header-status{font-size:11px;color:var(--muted);
+  display:flex;align-items:center;gap:4px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#7BC67E;
+  animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.header-actions{display:flex;gap:4px}
+.h-btn{width:34px;height:34px;border-radius:50%;border:none;
+  background:var(--cream);cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;transition:background .2s}
+.h-btn:hover{background:var(--blush)}
+
+/* Night banner */
+.night-banner{background:linear-gradient(90deg,#1a1040,#2d1b69);
+  color:rgba(255,255,255,.85);font-size:12px;padding:7px 16px;
+  text-align:center;flex-shrink:0;display:none;letter-spacing:.01em}
+.night-banner.visible{display:block}
+
+/* Mood strip */
+.mood-strip{display:none;flex-shrink:0;padding:10px 16px;
+  background:var(--warm);border-bottom:1px solid var(--border)}
+.mood-strip.visible{display:block}
+.mood-label{font-size:11px;color:var(--muted);font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.mood-row{display:flex;gap:6px}
+.mood-btn{flex:1;padding:8px 2px;border-radius:12px;
+  border:1.5px solid var(--border);background:white;cursor:pointer;
+  font-size:20px;text-align:center;transition:all .2s;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  -webkit-tap-highlight-color:transparent}
+.mood-btn small{font-size:10px;color:var(--muted);font-family:'Inter',sans-serif}
+.mood-btn:hover,.mood-btn:active{background:var(--blush);border-color:var(--dusty)}
+
+/* Crisis */
+.crisis-banner{display:none;margin:8px 12px 0;flex-shrink:0;
+  background:#FFF8F0;border:1px solid #F5C89A;
+  border-radius:16px;padding:12px 14px;
+  font-size:13px;color:#7B4A2D;line-height:1.55}
+.crisis-banner.visible{display:block}
+.crisis-banner strong{display:block;font-size:14px;margin-bottom:4px}
+.crisis-link{display:inline-block;margin-top:8px;background:var(--deep);
+  color:white;padding:7px 16px;border-radius:20px;
+  font-size:12px;font-weight:500;text-decoration:none}
+
+/* Chat */
+.chat-area{flex:1;overflow-y:auto;overflow-x:hidden;
+  padding:16px 12px 8px;
+  background:linear-gradient(180deg,var(--cream) 0%,#FDFAF7 100%);
+  -webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+.chat-area::-webkit-scrollbar{width:3px}
+.chat-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.date-sep{text-align:center;margin:12px 0 16px;font-size:10px;
+  color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+
+/* Messages */
+.msg{display:flex;margin-bottom:14px;align-items:flex-end;gap:7px}
+.msg.from-ai{justify-content:flex-start}
+.msg.from-user{justify-content:flex-end}
+.msg-av{width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blush),var(--rose));
+  display:flex;align-items:center;justify-content:center;font-size:14px}
+.bubble{max-width:76%;padding:11px 15px;border-radius:20px;
+  font-size:14.5px;line-height:1.65;word-break:break-word}
+.from-ai .bubble{background:white;border:1px solid var(--border);
+  border-bottom-left-radius:5px;color:var(--text);
+  box-shadow:0 2px 14px var(--shadow)}
+.from-user .bubble{background:var(--deep);color:white;
+  border-bottom-right-radius:5px}
+.msg-time{font-size:10px;color:var(--muted);margin-top:3px}
+.from-ai .msg-time{margin-left:37px}
+.from-user .msg-time{text-align:right}
+
+/* Typing */
+.typing-row{display:none;align-items:flex-end;gap:7px;margin-bottom:14px}
+.typing-row.visible{display:flex}
+.typing-bubble{background:white;border:1px solid var(--border);
+  border-radius:20px;border-bottom-left-radius:5px;
+  padding:12px 16px;display:flex;gap:5px;align-items:center;
+  box-shadow:0 2px 14px var(--shadow)}
+.t-dot{width:7px;height:7px;border-radius:50%;background:var(--rose);
+  animation:tdot 1s ease-in-out infinite}
+.t-dot:nth-child(2){animation-delay:.18s}
+.t-dot:nth-child(3){animation-delay:.36s}
+@keyframes tdot{0%,60%,100%{transform:translateY(0);opacity:.35}
+  30%{transform:translateY(-6px);opacity:1}}
+
+/* Dynamic suggestions — появляются после ответа AI */
+.suggestions{flex-shrink:0;padding:8px 12px 6px;
+  display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;
+  background:var(--warm);border-top:1px solid var(--border);
+  transition:opacity .3s}
+.suggestions::-webkit-scrollbar{display:none}
+.suggestions.hidden{display:none}
+.s-btn{white-space:nowrap;padding:7px 13px;border-radius:20px;
+  font-size:12.5px;border:1.5px solid var(--rose);
+  background:white;color:var(--deep);cursor:pointer;
+  font-family:'Inter',sans-serif;transition:all .2s;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent}
+.s-btn:hover,.s-btn:active{background:var(--blush)}
+
+/* Input */
+.input-wrap{flex-shrink:0;padding:10px 12px;background:white;
+  border-top:1px solid var(--border);
+  padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.input-row{display:flex;align-items:flex-end;gap:8px}
+.chat-textarea{flex:1;border:1.5px solid var(--border);border-radius:20px;
+  padding:10px 14px;font-size:15px;font-family:'Inter',sans-serif;
+  color:var(--text);background:var(--cream);resize:none;outline:none;
+  line-height:1.5;max-height:110px;min-height:42px;
+  -webkit-appearance:none;transition:border-color .2s;overflow-y:auto}
+.chat-textarea:focus{border-color:var(--dusty);background:white}
+.chat-textarea::placeholder{color:var(--muted)}
+.send-btn{width:42px;height:42px;border-radius:50%;background:var(--deep);
+  border:none;color:white;cursor:pointer;font-size:18px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:all .2s;-webkit-tap-highlight-color:transparent}
+.send-btn:hover{background:var(--dusty)}
+.send-btn:active{transform:scale(.93)}
+.send-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<div id="welcome">
+  <div class="petal">🌸</div>
+  <h1 class="w-title">Няня<br><em>для мамы</em></h1>
+  <p class="w-sub">Здесь можно говорить о чём угодно.<br>Без осуждения. В любое время суток.</p>
+  <div class="setup-card">
+    <h3>Познакомимся? 💛</h3>
+    <div class="field">
+      <label>Твоё имя</label>
+      <input type="text" id="f-mom" placeholder="Например, Аня" autocomplete="given-name">
+    </div>
+    <div class="field">
+      <label>Имя малыша</label>
+      <input type="text" id="f-baby" placeholder="Например, Миша">
+    </div>
+    <div class="field">
+      <label>Возраст малыша</label>
+      <select id="f-age">
+        <option value="">Выбери возраст</option>
+        <option>Только родился (до 2 недель)</option>
+        <option>1 месяц</option>
+        <option>2 месяца</option>
+        <option>3 месяца</option>
+        <option>4 месяца</option>
+        <option>5 месяцев</option>
+        <option>6 месяцев</option>
+        <option>7–9 месяцев</option>
+        <option>10–12 месяцев</option>
+        <option>Больше года</option>
+      </select>
+    </div>
+    <button class="btn-start" onclick="startApp()">Начать разговор →</button>
+    <p class="disclaimer">Я не врач и не психолог — я рядом чтобы выслушать.<br>Твои данные не передаются третьим лицам. 🔒</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="night-banner" id="night-banner">🌙 Ночь — ты не одна</div>
+
+  <div class="app-header">
+    <div class="avatar-ring">🌸</div>
+    <div class="header-info">
+      <div class="header-name">Няня для мамы</div>
+      <div class="header-status"><div class="status-dot"></div><span>всегда рядом</span></div>
+    </div>
+    <div class="header-actions">
+      <button class="h-btn" onclick="toggleMood()" title="Как ты сейчас?">🌡️</button>
+      <button class="h-btn" onclick="clearChat()" title="Новый разговор">✨</button>
+    </div>
+  </div>
+
+  <div class="mood-strip" id="mood-strip">
+    <div class="mood-label">Как ты прямо сейчас?</div>
+    <div class="mood-row">
+      <button class="mood-btn" onclick="pickMood('😊','хорошо')">😊<small>хорошо</small></button>
+      <button class="mood-btn" onclick="pickMood('😐','так себе')">😐<small>так себе</small></button>
+      <button class="mood-btn" onclick="pickMood('😔','тяжело')">😔<small>тяжело</small></button>
+      <button class="mood-btn" onclick="pickMood('😭','очень плохо')">😭<small>плохо</small></button>
+      <button class="mood-btn" onclick="pickMood('😤','злюсь')">😤<small>злюсь</small></button>
+    </div>
+  </div>
+
+  <div class="crisis-banner" id="crisis-banner">
+    <strong>💛 Похоже, тебе сейчас очень тяжело</strong>
+    Это нормально — просить о помощи. Поговори с живым человеком прямо сейчас:
+    <br><a class="crisis-link" href="tel:88002000122">📞 8-800-2000-122 (бесплатно, 24/7)</a>
+  </div>
+
+  <div class="chat-area" id="chat">
+    <div class="date-sep" id="date-sep"></div>
+  </div>
+
+  <div class="typing-row" id="typing">
+    <div class="msg-av">🌸</div>
+    <div class="typing-bubble">
+      <div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div>
+    </div>
+  </div>
+
+  <!-- Динамические подсказки — меняются после каждого ответа AI -->
+  <div class="suggestions hidden" id="suggestions"></div>
+
+  <div class="input-wrap">
+    <div class="input-row">
+      <textarea class="chat-textarea" id="input" placeholder="Напиши что угодно…"
+        rows="1" onkeydown="onKey(event)" oninput="resize(this)"></textarea>
+      <button class="send-btn" id="send-btn" onclick="send()">↑</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ STATE ══
+let momName='', babyName='', babyAge='';
+let history=[];
+let busy=false;
+let crisisShown=false;
+let turnCount=0; // считаем ходы разговора
+
+// ══ СТАРТОВЫЕ подсказки по теме разговора ══
+// Они динамически меняются — AI в ответе возвращает [SUGGEST: текст1 | текст2 | текст3]
+const INITIAL_SUGGESTIONS = [
+  'Не могу уснуть даже когда малыш спит',
+  'Чувствую себя плохой мамой',
+  'Очень устала и хочу поплакать',
+  'Малыш плачет, не знаю почему',
+  'Муж не понимает как мне тяжело',
+  'Скучаю по себе прежней',
+  'Просто хочу поговорить'
+];
+
+// ══ WELCOME → APP ══
+function startApp(){
+  momName  = (document.getElementById('f-mom').value.trim())  || 'Мамочка';
+  babyName = (document.getElementById('f-baby').value.trim()) || 'малыш';
+  babyAge  = document.getElementById('f-age').value || 'несколько месяцев';
+
+  document.getElementById('welcome').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+
+  const h = new Date().getHours();
+  if(h>=22||h<6) document.getElementById('night-banner').classList.add('visible');
+
+  const d = new Date();
+  document.getElementById('date-sep').textContent =
+    d.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+
+  showSuggestions(INITIAL_SUGGESTIONS);
+  appendAI(buildGreeting(h));
+}
+
+function buildGreeting(h){
+  let t = 'Привет! 🌸';
+  if(h>=22||h<5) t = 'Не спится? 🌙 Я здесь.';
+  else if(h<9)   t = 'Доброе утро! ☀️';
+  else if(h>=18) t = 'Добрый вечер! 🌆';
+  return `${t}\n\nЯ рада познакомиться, ${momName}! Расскажи — как ты сейчас? Что происходит у вас с ${babyName}?\n\nЗдесь можно говорить обо всём — о усталости, о страхах, о радостях. Я слушаю. 💛`;
+}
+
+// ══ SYSTEM PROMPT — психологически выверенный ══
+function systemPrompt(){
+  return `Ты — тёплая поддерживающая собеседница для молодой мамы. Тебя зовут "Няня для мамы".
+
+КОНТЕКСТ:
+- Мама: ${momName}
+- Малыш: ${babyName}, возраст: ${babyAge}
+- Время: ${new Date().toLocaleString('ru-RU')}
+- Ход разговора: ${turnCount}
+
+━━━ ТВОЯ РОЛЬ ━━━
+Ты не врач и не психолог. Ты — живая подруга которая умеет слушать без осуждения. Мамы часто чувствуют себя одинокими особенно ночью. Твоя главная задача — чтобы она почувствовала: её слышат и понимают.
+
+━━━ КАК СТРОИТЬ ОТВЕТ ━━━
+Используй технику активного слушания:
+
+1. СНАЧАЛА — отражение чувств (1 предложение):
+   Назови чувство которое слышишь: "Как это тяжело...", "Звучит так что ты совсем вымоталась...", "Это так больно — когда не понимают..."
+   НЕ говори "я понимаю" — это звучит формально. Говори ЧТО именно ты слышишь.
+
+2. ПОТОМ — нормализация (1 предложение, НЕ всегда):
+   Только если уместно: "Многие мамы чувствуют то же самое в этот период."
+   НЕ злоупотребляй — каждый раз говорить "это нормально" обесценивает.
+
+3. ПОТОМ — один открытый вопрос:
+   Задавай ОДИН вопрос который углубляет разговор:
+   - "Расскажи подробнее — что именно сейчас самое тяжёлое?"
+   - "Когда это началось?"
+   - "Есть ли кто-то рядом кто тебя поддерживает?"
+   - "Что бы сейчас тебе помогло больше всего?"
+   НЕ задавай несколько вопросов сразу.
+
+━━━ ДЛИНА И ТОНАЛЬНОСТЬ ━━━
+- 2–4 предложения максимум. Никогда не пиши списки.
+- Говори на "ты", тепло, как близкая подруга — не как справочник и не как терапевт
+- Иногда используй имя мамы — это создаёт живой контакт
+- Максимум 1–2 эмодзи, только если они уместны
+- Избегай: "конечно!", "отличный вопрос!", "безусловно"
+
+━━━ КОГДА ПРОСЯТ СОВЕТ ━━━
+Если мама явно просит совет или информацию — дай конкретный короткий ответ.
+Если жалуется — НЕ давай советов пока не спросит. Просто будь рядом.
+
+━━━ ДИНАМИЧЕСКИЕ ПОДСКАЗКИ ━━━
+В КОНЦЕ каждого ответа (после текста) добавь строку с подсказками для следующего хода.
+Формат: [SUGGEST: фраза1 | фраза2 | фраза3]
+Подсказки должны быть ЕСТЕСТВЕННЫМ продолжением разговора — то что мама могла бы сказать дальше.
+Примеры хороших подсказок:
+- после темы сна: "Это уже несколько недель | Стала бояться ночи | Муж не слышит малыша"
+- после темы вины: "Я срываюсь на него | Не чувствую любви | Боюсь что я плохая мама"
+- после темы усталости: "Просто хочу поспать 8 часов | Нет никого кто помог бы | Уже не помню себя до родов"
+
+━━━ КРИЗИС ━━━
+Если слышишь: мысли о вреде себе или малышу, "не хочу жить", "лучше бы меня не было", всё безнадёжно:
+- Отреагируй с большой теплотой, не паникуй, не читай лекцию
+- Скажи что она не одна и есть люди которые помогут
+- В конце добавь метку [CRISIS] — пользователь её не увидит
+
+━━━ ЗАПРЕЩЕНО ━━━
+- Ставить диагнозы ("у тебя депрессия")
+- Говорить "обратись к врачу" без реальной необходимости
+- Длинные ответы, списки, нумерация
+- Фразы: "я понимаю вас", "конечно!", "как здорово что вы написали"
+- Обесценивание: "зато малыш здоров!", "это пройдёт!"
+
+Отвечай ТОЛЬКО на русском языке.`;
+}
+
+// ══ SEND ══
+async function send(){
+  const el = document.getElementById('input');
+  const text = el.value.trim();
+  if(!text || busy) return;
+
+  el.value = ''; resize(el);
+  hideSuggestions();
+
+  appendUser(text);
+  history.push({role:'user', content:text});
+  turnCount++;
+  await callAI();
+}
+
+async function callAI(){
+  busy = true;
+  document.getElementById('send-btn').disabled = true;
+  setTyping(true);
+
+  try{
+    const r = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({system: systemPrompt(), messages: history})
+    });
+    const data = await r.json();
+    if(!r.ok) throw new Error(data.error||'API error');
+
+    let raw = data.text || '';
+
+    // Извлекаем [CRISIS]
+    let isCrisis = false;
+    if(raw.includes('[CRISIS]')){
+      raw = raw.replace('[CRISIS]','').trim();
+      isCrisis = true;
+    }
+
+    // Извлекаем [SUGGEST: ...]
+    let suggestions = [];
+    const suggestMatch = raw.match(/\[SUGGEST:\s*(.+?)\]/);
+    if(suggestMatch){
+      suggestions = suggestMatch[1].split('|').map(s=>s.trim()).filter(Boolean);
+      raw = raw.replace(suggestMatch[0],'').trim();
+    }
+
+    history.push({role:'assistant', content:raw});
+    setTyping(false);
+    appendAI(raw);
+
+    if(isCrisis && !crisisShown){
+      document.getElementById('crisis-banner').classList.add('visible');
+      crisisShown = true;
+    }
+
+    // Показываем динамические подсказки
+    if(suggestions.length > 0){
+      showSuggestions(suggestions);
+    } else {
+      // Фолбэк — базовые подсказки если AI не дал
+      showSuggestions(getFallbackSuggestions());
+    }
+
+  } catch(e){
+    setTyping(false);
+    appendAI('Что-то пошло не так. Я никуда не ухожу — попробуй ещё раз 💛');
+    showSuggestions(INITIAL_SUGGESTIONS);
+  }
+
+  busy = false;
+  document.getElementById('send-btn').disabled = false;
+}
+
+// Фолбэк подсказки если AI не вернул [SUGGEST]
+function getFallbackSuggestions(){
+  const sets = [
+    ['Да, именно так', 'Хочу рассказать подробнее', 'Есть ещё кое-что'],
+    ['Это уже давно', 'Не знаю как справиться', 'Муж не понимает'],
+    ['Хочу поговорить о другом', 'Как мне с этим справиться?', 'Спасибо, полегчало'],
+  ];
+  return sets[turnCount % sets.length];
+}
+
+// ══ UI ══
+function appendUser(text){
+  const chat = document.getElementById('chat');
+  const div = document.createElement('div');
+  div.className = 'msg from-user';
+  div.innerHTML = `<div><div class="bubble">${esc(text)}</div><div class="msg-time">${now()}</div></div>`;
+  chat.appendChild(div);
+  scrollDown();
+}
+
+function appendAI(text){
+  const chat = document.getElementById('chat');
+  const html = esc(text).replace(/\n/g,'<br>');
+  const div = document.createElement('div');
+  div.className = 'msg from-ai';
+  div.innerHTML = `
+    <div class="msg-av">🌸</div>
+    <div><div class="bubble">${html}</div><div class="msg-time">${now()}</div></div>`;
+  chat.appendChild(div);
+  scrollDown();
+}
+
+function showSuggestions(items){
+  const el = document.getElementById('suggestions');
+  el.innerHTML = '';
+  items.slice(0,5).forEach(text => {
+    const btn = document.createElement('button');
+    btn.className = 's-btn';
+    btn.textContent = text;
+    btn.onclick = () => { document.getElementById('input').value = text; send(); };
+    el.appendChild(btn);
+  });
+  el.classList.remove('hidden');
+}
+
+function hideSuggestions(){
+  document.getElementById('suggestions').classList.add('hidden');
+}
+
+function setTyping(on){
+  document.getElementById('typing').classList.toggle('visible', on);
+  if(on) scrollDown();
+}
+
+function scrollDown(){
+  const c = document.getElementById('chat');
+  setTimeout(()=> c.scrollTop = c.scrollHeight, 60);
+}
+
+function toggleMood(){
+  document.getElementById('mood-strip').classList.toggle('visible');
+}
+
+function pickMood(emoji, label){
+  document.getElementById('mood-strip').classList.remove('visible');
+  document.getElementById('input').value = `${emoji} Сейчас мне ${label}`;
+  send();
+}
+
+function clearChat(){
+  if(!confirm('Начать новый разговор? История очистится.')) return;
+  history = []; crisisShown = false; turnCount = 0;
+  const ds = document.getElementById('date-sep');
+  document.getElementById('chat').innerHTML = '';
+  document.getElementById('chat').appendChild(ds||document.createElement('div'));
+  document.getElementById('crisis-banner').classList.remove('visible');
+  showSuggestions(INITIAL_SUGGESTIONS);
+  appendAI(buildGreeting(new Date().getHours()));
+}
+
+function onKey(e){
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
+}
+
+function resize(el){
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 110) + 'px';
+}
+
+function now(){
+  return new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+}
+
+function esc(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
